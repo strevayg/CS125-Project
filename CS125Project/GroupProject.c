@@ -2,6 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+
+#define SIZE 489
 //git commit -a
 // i, insert declaration, :wq
 // git push and you enter log in shit 
@@ -13,14 +15,24 @@ void cmp(char[], char[]);
 int main()
 {
  FILE *ptr= fopen("prowords.txt", "r");
- char answer[6], guess[6];
- int x;
+ char answer[SIZE][6], guess[6];
+ int x,y=0;
+ char words[490];
+ 
  //seeding random letters
  srand(time(NULL));
  //creating random word
- x= rand()%25+1;
- fscanf(ptr, "%s", answer);
+ 
+ x= rand()%490;
+ while (!feof(ptr))
+ {
+  fgets(words[y],5, ptr);
+  y++;
+ }
+ printf("%s\n", words);
+ fclose(ptr);
  //asking for inputs
+ //answer= words[x];
  printf("word=%s\n", answer);
  printf("Welcome to WORDLE!\nYou have six guesses to get the word. START\n");
  fgets(guess,6,stdin);
