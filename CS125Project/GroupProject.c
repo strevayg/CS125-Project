@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define SIZE 489
+#define SIZE 488
 //git commit -a
 // i, insert declaration, :wq
 // git push and you enter log in shit 
@@ -15,24 +15,33 @@ void cmp(char[], char[]);
 int main()
 {
  FILE *ptr= fopen("prowords.txt", "r");
- char answer[SIZE][6], guess[6];
- int x,y=0;
- char words[490];
+ char answer[6], guess[6];
+ int x,y,i;
+ char words[SIZE][6]; //array storing all the words 
  
  //seeding random letters
  srand(time(NULL));
  //creating random word
  
- x= rand()%490;
- while (!feof(ptr))
+ y= rand()%489;
+ do
  {
-  fgets(words[y],5, ptr);
-  y++;
+  x= fscanf(ptr, "%s", words[i]);
+  if(x > 0)
+  {
+   //printf("read: %s\n", words[i]);
+   i++;
+  }
  }
- printf("%s\n", words);
+ while(x > 0);
  fclose(ptr);
+
+ printf("%s\n", words[y]);
+ //getting answer word
+ strcpy(answer, words[y]);
+
+
  //asking for inputs
- //answer= words[x];
  printf("word=%s\n", answer);
  printf("Welcome to WORDLE!\nYou have six guesses to get the word. START\n");
  fgets(guess,6,stdin);
@@ -42,15 +51,7 @@ int main()
  
  return 0;
 }
-//fixed
 
-// function to create a word 
-char word()
-{
- char x;
- x=rand()%26+97;
- return x;
-}
 // function to compare guess and answer and change it accordingly color wise
 void cmp(char a[], char g[])
 {
