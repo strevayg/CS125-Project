@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include <ctype.h>
 
 #define SIZE 488
 //git commit -a
@@ -9,68 +10,96 @@
 // git push and you enter log in shit 
 
 // functions declaration
-char word();
-void cmp(char[], char[]);
+char word ();
+void cmp (char[], char[]);
 
-int main()
+int
+main ()
 {
- FILE *ptr= fopen("prowords.txt", "r");
- char answer[6], guess[6];
- int x,y,i;
- char words[SIZE][6]; //array storing all the words 
- 
- //seeding random letters
- srand(time(NULL));
- //creating random word
- 
- y= rand()%489;
- do
- {
-  x= fscanf(ptr, "%s", words[i]);
-  if(x > 0)
-  {
-   //printf("read: %s\n", words[i]);
-   i++;
-  }
- }
- while(x > 0);
- fclose(ptr);
+  FILE *ptr = fopen ("prowords.txt", "r");
+  char answer[6], guess[7];
+  int x, y, i;			// x is successful scans, y is rand number, i is incrementing
+  char words[SIZE][6];		//array storing all the words from prowords.txt
 
- printf("%s\n", words[y]);
- //getting answer word
- strcpy(answer, words[y]);
+  //seeding and variable for random word from list
+  srand (time (NULL));
+  y = rand () % 489;
 
+  //creating array of 5 letter words from prowords.txt (fileIO)
+  do
+    {
+      x = fscanf (ptr, "%s", words[i]);
+      if (x > 0)
+	{
+	  //printf("read: %s\n", words[i]); //shows if all were scanned in (yes)
+	  i++;
+	}
+    }
+  while (x > 0);
+  fclose (ptr);
 
- //asking for inputs
- printf("word=%s\n", answer);
- printf("Welcome to WORDLE!\nYou have six guesses to get the word. START\n");
- fgets(guess,6,stdin);
- 
- //function for color change
- cmp(answer, guess);
- 
- return 0;
+  //getting "answer" word for the game
+  strcpy (answer, words[y]);
+
+  //asking for inputs
+  printf ("word=%s\n", answer);	//simply shows "answer" word DELETE LINE LATER
+
+  printf
+    ("Welcome to WORDLE!\nYou have six guesses to get the word. START\n");
+  for (i = 1; i < 7; i++)
+    {
+
+      fgets (guess, 7, stdin);
+      while(strlen(guess)<6) //guess length is 6 bc newline or null(?) FIX PORTION BELOW
+      { 
+        printf("Not enough letters\nTry again\n\n");
+        fgets (guess, 7, stdin);
+        printf("length guess: %d\n", strlen(guess));
+      } 
+      for(x=0; x<6; x++)
+      {
+        guess[x]= tolower(guess[x]);
+      }
+      guess[5] = '\0';
+      //printf("Guess #%d: \"%s\"",i,guess);
+
+      //function for color change
+      cmp (answer, guess);
+
+      if (strncmp (guess, answer, 5) == 0)
+    	{
+	      printf ("CONGRATS! You guessed it!\n");
+	      break;
+	    }
+      if(i==6)
+      {
+        printf("You did not guess the word.\nThe word was %s\n", answer);
+      }
+    }
+  return 0;
 }
 
-// function to compare guess and answer and change it accordingly color wise
-void cmp(char a[], char g[])
+// FUNCTION to compare guess and answer and change it accordingly color wise
+void
+cmp (char a[], char g[])
 {
- int x;
- for(x=0;x<=5;x++)
- {
-  if(a[x] == g[x])
-  {
-    printf("\e[1;32m%c", g[x]); //green font, correct spot
-  }
-  else if(a[0] == g[x] || a[1] == g[x] || a[2] == g[x] || a[3] == g[x] || a[4] == g[x] )
-  {
-   printf("\e[1;33m%c", g[x]);  // yellow, good letter, wrong spot
-  }
-  else 
-  {
-   printf("\e[0m%c", g[x]); //white 
-  }
- }
-
- //printf("%s\n", g);
+  int x;
+  for (x = 0; x <= 5; x++)
+    {
+      if (a[x] == g[x])
+	{
+	  printf ("\e[1;32m%c", g[x]);	//green font, correct spot
+	}
+      else if (a[0] == g[x] || a[1] == g[x] || a[2] == g[x] || a[3] == g[x]
+	       || a[4] == g[x])
+	{
+	  printf ("\e[1;33m%c", g[x]);	// yellow, good letter, wrong spot
+	}
+      else
+	{
+	  printf ("\e[0m%c", g[x]);	//white 
+	}
+    }
+  printf ("\e[0m\n");
+  printf ("\n");
 }
