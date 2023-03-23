@@ -4,20 +4,22 @@
 #include <time.h>
 #include <ctype.h>
 #include "color.h"
-#define SIZE 488
+#include "define.h"
+
 //git commit -a
 // i, insert declaration, :wq
 // git push and you enter log in shit 
 
 // functions declaration
 char word ();
+void correct();
 void cmp (char[], char[]);
 
 int
 main ()
 {
   FILE *ptr = fopen ("prowords.txt", "r");
-  char answer[6], guess[7];
+  char answer[6], guess[50];
   int x, y, i;			// x is successful scans, y is rand number, i is incrementing
   char words[SIZE][6];		//array storing all the words from prowords.txt
 
@@ -45,16 +47,17 @@ main ()
   printf ("word=%s\n", answer);	//simply shows "answer" word DELETE LINE LATER
 
   printf
-    ("Welcome to WORDLE!\nYou have six guesses to get the word. START\n");
+    ("Welcome to WORDLE!\nYou have six guesses to get the word.\nIt is 5 letters.\nSTART\n");
   for (i = 1; i < 7; i++)
     {
 
-      fgets (guess, 7, stdin);
-      while(strlen(guess)<6) //guess length is 6 bc newline or null(?) FIX PORTION BELOW
+      fgets (guess, 50, stdin);
+      guess[strcspn(guess,"\n")] = 0;
+      while(strlen(guess) != 5) //guess length is 6 bc newline or null(?) FIX PORTION BELOW
       { 
-        printf("Not enough letters\nTry again\n\n");
-        fgets (guess, 7, stdin);
-        printf("length guess: %d\n", strlen(guess));
+        printf("Not 5 letters\nTry again\n\n");
+        fgets (guess, 50, stdin);
+        guess[strcspn(guess,"\n")] = 0;
       } 
       for(x=0; x<6; x++)
       {
@@ -67,16 +70,21 @@ main ()
       cmp (answer, guess);
 
       if (strncmp (guess, answer, 5) == 0)
-    	{
-	      printf ("CONGRATS! You guessed it!\n");
-	      break;
-	    }
+      {
+        correct();
+	    break;
+	  }
       if(i==6)
       {
         printf("You did not guess the word.\nThe word was %s\n", answer);
       }
     }
   return 0;
+}
+
+void correct()
+{
+   printf("CONGRATS! You guessed it!\n");
 }
 
 // FUNCTION to compare guess and answer and change it accordingly color wise
