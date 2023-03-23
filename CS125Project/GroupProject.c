@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <ctype.h>
-
+#include "color.h"
 #define SIZE 488
 //git commit -a
 // i, insert declaration, :wq
@@ -80,8 +80,9 @@ main ()
 }
 
 // FUNCTION to compare guess and answer and change it accordingly color wise
-void
-cmp (char a[], char g[])
+
+/* 
+void cmp (char a[], char g[])
 {
   int x;
   for (x = 0; x <= 5; x++)
@@ -103,3 +104,4 @@ cmp (char a[], char g[])
   printf ("\e[0m\n");
   printf ("\n");
 }
+ */
