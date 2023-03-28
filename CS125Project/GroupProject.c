@@ -28,10 +28,9 @@ int main ()
     {
       x = fscanf (ptr, "%s", words[i]);
       if (x > 0)
-	{
-	  //printf("read: %s\n", words[i]); //shows if all were scanned in (yes)
-	  i++;
-	}
+      {
+        i++;
+	    }
     }
   while (x > 0);
   fclose (ptr);
@@ -42,8 +41,7 @@ int main ()
   //asking for inputs
   printf ("word=%s\n", answer);	//simply shows "answer" word DELETE LINE LATER
 
-  printf
-    ("Welcome to WORDLE!\nYou have six guesses to get the word.\nIt is 5 letters.\nSTART\n\n");
+  printf("Welcome to WORDLE!\nYou have six guesses to get the word.\nIt is 5 letters.\nSTART\n\n");
   for (i = 1; i < 7; i++)
     {
 
@@ -60,7 +58,6 @@ int main ()
         guess[x]= tolower(guess[x]);
       }
       guess[5] = '\0';
-      //printf("Guess #%d: \"%s\"",i,guess);
       r = letter(guess);
       if(r==1)
       {
