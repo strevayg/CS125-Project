@@ -1,3 +1,5 @@
+/* Contributors: Lily, Jules, Gabby 
+   Description: Wordle game!        */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -6,21 +8,15 @@
 #include "color.h"
 #include "define.h"
 
-//git commit -a
-// i, insert declaration, :wq
-// git push and you enter log in shit 
-
 // functions declaration
-//char word ();
-void correct();
-//void cmp (char[], char[]);
+void correct(int i);
+int letter(char g[]);
 
-int
-main ()
+int main ()
 {
   FILE *ptr = fopen ("prowords.txt", "r");
   char answer[6], guess[50];
-  int x, y, i, r;			// x is successful scans, y is rand number, i is incrementing
+  int x, y, i, r;			// x is successful scans, y is rand number, i is incrementing, r is return of letter fcn
   char words[SIZE][6];		//array storing all the words from prowords.txt
 
   //seeding and variable for random word from list
@@ -40,14 +36,14 @@ main ()
   while (x > 0);
   fclose (ptr);
 
-  //getting "answer" word for the game
+  //getting "answer" word for the game (using y)
   strcpy (answer, words[y]);
 
   //asking for inputs
   printf ("word=%s\n", answer);	//simply shows "answer" word DELETE LINE LATER
 
   printf
-    ("Welcome to WORDLE!\nYou have six guesses to get the word.\nIt is 5 letters.\nSTART\n");
+    ("Welcome to WORDLE!\nYou have six guesses to get the word.\nIt is 5 letters.\nSTART\n\n");
   for (i = 1; i < 7; i++)
     {
 
@@ -75,7 +71,7 @@ main ()
 
       if (strncmp (guess, answer, 5) == 0)
       {
-        correct();
+        correct(i);
 	    break;
 	  }
       if(i==6)
@@ -86,9 +82,9 @@ main ()
   return 0;
 }
 
-void correct()
+void correct(int i)
 {
-   printf("CONGRATS! You guessed it!\n");
+  printf("CONGRATS! You guessed it! Trys: %d\n", i);
 }
 
 int letter(char g[])
