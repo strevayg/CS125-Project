@@ -11,16 +11,16 @@
 // git push and you enter log in shit 
 
 // functions declaration
-char word ();
+//char word ();
 void correct();
-void cmp (char[], char[]);
+//void cmp (char[], char[]);
 
 int
 main ()
 {
   FILE *ptr = fopen ("prowords.txt", "r");
   char answer[6], guess[50];
-  int x, y, i;			// x is successful scans, y is rand number, i is incrementing
+  int x, y, i, r;			// x is successful scans, y is rand number, i is incrementing
   char words[SIZE][6];		//array storing all the words from prowords.txt
 
   //seeding and variable for random word from list
@@ -53,7 +53,7 @@ main ()
 
       fgets (guess, 50, stdin);
       guess[strcspn(guess,"\n")] = 0;
-      while(strlen(guess) != 5) //guess length is 6 bc newline or null(?) FIX PORTION BELOW
+      while(strlen(guess) != 5) //guess length is not 5
       { 
         printf("Not 5 letters\nTry again\n\n");
         fgets (guess, 50, stdin);
@@ -65,7 +65,11 @@ main ()
       }
       guess[5] = '\0';
       //printf("Guess #%d: \"%s\"",i,guess);
-
+      r = letter(guess);
+      if(r==1)
+      {
+        return 1;
+      }
       //function for color change
       cmp (answer, guess);
 
@@ -87,29 +91,16 @@ void correct()
    printf("CONGRATS! You guessed it!\n");
 }
 
-// FUNCTION to compare guess and answer and change it accordingly color wise
-
-/* 
-void cmp (char a[], char g[])
+int letter(char g[])
 {
   int x;
-  for (x = 0; x <= 5; x++)
+  for(x=0;x<5;x++)
+  {
+    if( isalpha(g[x])==0)
     {
-      if (a[x] == g[x])
-	{
-	  printf ("\e[1;32m%c", g[x]);	//green font, correct spot
-	}
-      else if (a[0] == g[x] || a[1] == g[x] || a[2] == g[x] || a[3] == g[x]
-	       || a[4] == g[x])
-	{
-	  printf ("\e[1;33m%c", g[x]);	// yellow, good letter, wrong spot
-	}
-      else
-	{
-	  printf ("\e[0m%c", g[x]);	//white 
-	}
+    printf("\nYour word is NOT all letters!\nRerun program and FOLLOW DIRECTIONS!\n");
+    return 1;
     }
-  printf ("\e[0m\n");
-  printf ("\n");
+  }
+  return 0; 
 }
- */
