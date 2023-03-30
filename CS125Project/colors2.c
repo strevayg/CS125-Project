@@ -10,8 +10,8 @@
 
 void cmp (char a[], char g[])
 {
-  int x, spots[6], color[6];
-  for (x = 0; x <= 5; x++)
+  int x, y, spots[5]={0,0,0,0,0}, color[5]={0,0,0,0,0};
+  for (x = 0; x < 5; x++)
     {
       if (a[x] == g[x])
       {
@@ -19,15 +19,41 @@ void cmp (char a[], char g[])
         color[x]=1;
       }
     }
-    for(x=0; x<=5; x++)
+    printf("spots: %d%d%d%d%d\n" , spots[0],spots[1],spots[2],spots[3],spots[4]);
+    printf("color: %d%d%d%d%d\n" , color[0],color[1],color[2],color[3],color[4]);
+    for(y=0; y<5; y++) //go through user guess letters
+
     {
-      if (a[0] == g[x] || a[1] == g[x] || a[2] == g[x] || a[3] == g[x]
-           || a[4] == g[x] && spots[x]==0)
+        printf("Looking at user's guess letter: %c\n", g[y]);
+
+        if (color[y] != 0){  //you already gave feedback on this letter
+
+            printf("you already gave feedback on this letter ");
+
+            continue;        //move on to the next letter in guess
+
+        }
+      
+      for(x=0;x<5;x++) //go through solution letters and compare with guess
       {
-         spots[x]=1;
-         color[x]=2;
-      }
+        if (y==x)  //you already compared guess with same position in solution
+        {          //in the for loop where you added 1's for correct match in correct position
+         continue;
+        }
+        else if (g[y]==a[x]) //a guess letter matched a solution letter
+        {
+            if (spots[x] != 0){ //the match is for a letter you already gave feedback on
+              continue;         //move on to the next possible solution letter
+            }
+            spots[x]=1;
+            color[y]=2;
+            break;
+        }
+       } 
+       printf("spots: %d%d%d%d%d\n" , spots[0],spots[1],spots[2],spots[3],spots[4]);
+    printf("color: %d%d%d%d%d\n" , color[0],color[1],color[2],color[3],color[4]);
     }
+   
     for (x = 0; x <= 5; x++)
     {
       if (color[x]==1)
