@@ -48,7 +48,7 @@ int main ()
   strcpy (answer, words[y]);
 
   //asking for inputs
-  printf ("word=%s\n", answer);	//simply shows "answer" word DELETE LINE LATER
+  //printf ("word=%s\n", answer);	//simply shows "answer" word 
 
   printf("Welcome to WORDLE!\nYou have six guesses to get the word.\nIt is 5 letters.\nSTART\n\n");
   for (i = 1; i < 7; i++)
