@@ -2,5 +2,5 @@
    Description: This file contains the declaration of
                 size 488     */
 
-#pragma once;
+#pragma once
 #define SIZE 488
