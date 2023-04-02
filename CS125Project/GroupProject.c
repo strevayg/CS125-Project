@@ -1,5 +1,14 @@
-/* Contributors: Lily, Jules, Gabby 
-   Description: Wordle game!        */
+/* Contributors: Lily, Jules, Gabby
+   Description: This program is the main file for our wordle game. 
+                It opens the text file "prowords.txt" to scan in 
+                words into a depository in our program and randomly 
+                picks one every time it is run. A user may enter more 
+                or less than 5 letters but will be reprompted to enter 
+                only 5. If the user types in invalid characters, 
+                non-letters, the program will quit. A user may also 
+                enter nonwords so long as it is only 5 letters, and 
+                that will be taken as a valid guess. The user gets six 
+                valid, 5 letter, guesses to guess the word. Good luck! */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
