@@ -60,3 +60,4 @@ void cmp (char a[], char g[])
     }
   printf ("\e[0m\n");
   printf ("\n");
+}
