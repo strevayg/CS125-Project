@@ -9,6 +9,7 @@
                 enter nonwords so long as it is only 5 letters, and 
                 that will be taken as a valid guess. The user gets six 
                 valid, 5 letter, guesses to guess the word. Good luck! */
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -48,8 +49,6 @@ int main ()
   strcpy (answer, words[y]);
 
   //asking for inputs
-  //printf ("word=%s\n", answer);	//simply shows "answer" word 
-
   printf("Welcome to WORDLE!\nYou have six guesses to get the word.\nIt is 5 letters.\nSTART\n\n");
   for (i = 1; i < 7; i++)
     {
@@ -74,12 +73,11 @@ int main ()
       }
       //function for color change
       cmp (answer, guess);
-
       if (strncmp (guess, answer, 5) == 0)
       {
         correct(i);
 	    break;
-	  }
+	    }
       if(i==6)
       {
         printf("You did not guess the word.\nThe word was %s\n", answer);
